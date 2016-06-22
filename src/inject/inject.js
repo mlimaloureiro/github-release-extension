@@ -7,13 +7,13 @@ chrome.extension.sendMessage({}, function(response) {
 			clearInterval(readyStateCheckInterval);
 			chrome.storage.local.set({releaseData: null});
 
-			var $elements = $(".table-list-item");
+			var $elements = $(".js-issue-row");
 			$elements.on('click', updateReleaseData);
 		}
 	}
 
 	function updateReleaseData(evt) {
-		var $pullRequestContainer = $(evt.target).closest('.table-list-item');
+		var $pullRequestContainer = $(evt.target).closest('.js-issue-row');
 		// remove if exists
 		for (var index in releaseData) {
 			if (releaseData[index]['id'] == $pullRequestContainer[0].id) {
@@ -27,7 +27,7 @@ chrome.extension.sendMessage({}, function(response) {
 		// add
 		$pullRequestContainer.css('background-color', '#CCFFE5');
 
-		var titleAnchor = $pullRequestContainer.find('.issue-title-link');
+		var titleAnchor = $pullRequestContainer.find('.Box-row-link');
 		var regExp = /\[[^)]+\]\[([^)]+)\]/;
 		var issue = regExp.exec(titleAnchor.text())[1];
 		var title = titleAnchor.text().replace(/\[[^)]+\]\[[^)]+\]/, '').trim();
